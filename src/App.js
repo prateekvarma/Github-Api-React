@@ -4,11 +4,15 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
 function App() {
   return (
-    <div>
-      <Dashboard></Dashboard>
-      <Login />
+    <Router>
+      <Route path='/'>
+        <Dashboard></Dashboard>
+      </Route>
+      <Route path='/login'>
+        <Login />
+      </Route>
       <Error />
-    </div>
+    </Router>
   );
 }
 
