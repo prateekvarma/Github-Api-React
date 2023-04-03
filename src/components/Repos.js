@@ -5,7 +5,12 @@ import { ExampleChart, Pie3D, Column3D, Bar3D, Doughnut2D } from './Charts';
 
 const Repos = () => {
   const { repos } = React.useContext(GithubContext);
-  console.log(repos);
+
+  let languages = repos.reduce((preValue, value) => {
+    const {language} = value 
+    if(!language) return preValue;
+    //tbd
+  }, {})
 
   const chartData = [
     {
