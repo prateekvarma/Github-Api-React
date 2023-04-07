@@ -12,9 +12,29 @@ const GithubProvider = ({ children }) => {
   const [githubUser, setGithubUser] = useState(mockUser);
   const [repos, setRepos] = useState(mockRepos);
   const [followers, setFollowers] = useState(mockFollowers);
+  const [request, setRequest] = useState(0);
+  const [loading, setLoading] = useState(false);
+
+  const checkRequests = () => {
+    axios(`${rootUrl}/rate_limit`)
+      .then(({ data }) => {
+        //the data object has a rate object which as a remaining key
+        let {
+          rate: { remaining },
+        } = data;
+        setRequest(remaining);
+        if (remaining === 0) {
+          //throw an error
+          
+        }
+      })
+      .catch((err) => console.error(err));
+  };
+
+  useEffect(() => {}, []);
 
   return (
-    <GithubContext.Provider value={{ githubUser, repos, followers }}>
+    <GithubContext.Provider value={{ githubUser, repos, followers, requests }}>
       {children}
     </GithubContext.Provider>
   );
