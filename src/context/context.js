@@ -12,7 +12,7 @@ const GithubProvider = ({ children }) => {
   const [githubUser, setGithubUser] = useState(mockUser);
   const [repos, setRepos] = useState(mockRepos);
   const [followers, setFollowers] = useState(mockFollowers);
-  const [request, setRequest] = useState(0);
+  const [requests, setRequests] = useState(0);
   const [loading, setLoading] = useState(false);
 
   const checkRequests = () => {
@@ -22,7 +22,7 @@ const GithubProvider = ({ children }) => {
         let {
           rate: { remaining },
         } = data;
-        setRequest(remaining);
+        setRequests(remaining);
         if (remaining === 0) {
           //throw an error
           
@@ -31,7 +31,7 @@ const GithubProvider = ({ children }) => {
       .catch((err) => console.error(err));
   };
 
-  useEffect(() => {}, []);
+  useEffect(checkRequests, []);
 
   return (
     <GithubContext.Provider value={{ githubUser, repos, followers, requests }}>
